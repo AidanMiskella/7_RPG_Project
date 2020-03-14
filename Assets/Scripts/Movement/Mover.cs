@@ -1,42 +1,53 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using RPG.Combat;
+using RPG.Core;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Mover : MonoBehaviour {
+namespace RPG.Movement {
 
-    [SerializeField] Transform target;
+    public class Mover : MonoBehaviour, IAction {
 
-    Ray lastRay;
+        [SerializeField] Transform target;
 
-    // Update is called once per frame
-    void Update() {
+        NavMeshAgent navMeshAgent;
 
-        if (Input.GetMouseButton(0)) {
+        private void Start() {
 
-            MoveToCursor();
+            navMeshAgent = GetComponent<NavMeshAgent>();
         }
 
-        UpdateAnimator();
-    }
+        void Update() {
 
-    private void MoveToCursor() {
-
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        bool hasHit = Physics.Raycast(ray, out hit);
-
-        if (hasHit) {
-
-            GetComponent<NavMeshAgent>().destination = hit.point;
+            UpdateAnimator();
         }
-    }
 
-    private void UpdateAnimator() {
+        public void StartMoveAction(Vector3 destination) {
 
-        Vector3 velocity = GetComponent<NavMeshAgent>().velocity;
-        Vector3 localVelocity = transform.InverseTransformDirection(velocity);
-        float speed = localVelocity.z;
-        GetComponent<Animator>().SetFloat("forwardSpeed", speed);
+            GetComponent<ActionScheduler>().StartAction(this);
+            MoveTo(destination);
+        }
+
+        public void MoveTo(Vector3 destination) {
+
+            navMeshAgent.destination = destination;
+            navMeshAgent.isStopped = false;
+        }
+
+        public void Cancel() {
+
+            navMeshAgent.isStopped = true;
+        }
+
+        private void UpdateAnimator() {
+
+            Vector3 velocity = GetComponent<NavMeshAgent>().velocity;
+            Vector3 localVelocity = transform.InverseTransformDirection(velocity);
+            float speed = localVelocity.z;
+            GetComponent<Animator>().SetFloat("forwardSpeed", speed);
+        }
     }
 }
+
+
