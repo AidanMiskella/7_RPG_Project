@@ -1,50 +1,49 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using RPG.Combat;
 using RPG.Movement;
 using UnityEngine;
 
-namespace RPG.Control {
+namespace RPG.Control
+{
+    public class PlayerController : MonoBehaviour
+    {
 
-    public class PlayerController : MonoBehaviour {
-
-        // Update is called once per frame
-        private void Update() {
-
+        private void Update()
+        {
             if (InteractWithCombat()) return;
             if (InteractWithMovement()) return;
         }
 
-        private bool InteractWithCombat() {
-
+        private bool InteractWithCombat()
+        {
             RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
-            foreach (RaycastHit hit in hits) {
-
+            foreach (RaycastHit hit in hits)
+            {
                 CombatTarget target = hit.transform.GetComponent<CombatTarget>();
-                if (!GetComponent<Fighter>().CanAttack(target)) {
+                if (target == null) continue;
 
+                if (!GetComponent<Fighter>().CanAttack(target.gameObject))
+                {
                     continue;
                 }
 
-                if (Input.GetMouseButtonDown(0)) {
-
-                    GetComponent<Fighter>().Attack(target);
+                if (Input.GetMouseButtonDown(0))
+                {
+                    GetComponent<Fighter>().Attack(target.gameObject);
                 }
                 return true;
             }
             return false;
         }
 
-        private bool InteractWithMovement() {
-
+        private bool InteractWithMovement()
+        {
             RaycastHit hit;
             bool hasHit = Physics.Raycast(GetMouseRay(), out hit);
-
-            if (hasHit) {
-
-                if (Input.GetMouseButton(0)) {
-
+            if (hasHit)
+            {
+                if (Input.GetMouseButton(0))
+                {
                     GetComponent<Mover>().StartMoveAction(hit.point);
                 }
                 return true;
@@ -52,8 +51,8 @@ namespace RPG.Control {
             return false;
         }
 
-        private static Ray GetMouseRay() {
-
+        private static Ray GetMouseRay()
+        {
             return Camera.main.ScreenPointToRay(Input.mousePosition);
         }
     }
