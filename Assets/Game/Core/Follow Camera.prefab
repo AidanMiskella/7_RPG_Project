@@ -25,8 +25,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1809409112196008075}
-  m_LocalRotation: {x: -0.21958919, y: 0.36663082, z: -0.08950218, w: -0.89963984}
-  m_LocalPosition: {x: 36.348137, y: 41.65559, z: -37.72031}
+  m_LocalRotation: {x: -0.26039156, y: 0.6714176, z: -0.2743587, w: -0.637277}
+  m_LocalPosition: {x: 4.67, y: 5.6, z: 0.43}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1809409113054873540}
@@ -44,9 +44,10 @@ Camera:
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_GateFitMode: 2
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -126,4 +127,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c602bb83bcb7eb84582cddd7a73a7e2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  target: {fileID: 9169026001514661365, guid: 00254deafec00df47a5cb22b82fa7df2, type: 3}
